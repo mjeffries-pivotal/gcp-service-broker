@@ -1,0 +1,4 @@
+applications:
+- name: awwvision
+  instances: 1
+  random-route: true

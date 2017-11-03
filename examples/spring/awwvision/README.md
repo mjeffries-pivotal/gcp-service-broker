@@ -21,14 +21,15 @@ Awwvision: Spring Boot edition has two endpoints:
 
 1. Log in to your Cloud Foundry using the `cf login` command.
 
-1. From the main project directory, build an executable jar and push it to Cloud Foundry. This step will initially fail due to lack of credentials.
+1. From the main project directory, build an executable jar and push it to Cloud Foundry. We'll wait to start the app until we have the required GCP service created.
     ```
-    mvn package -DskipTests && cf push -p target/awwvision-spring-0.0.1-SNAPSHOT.jar awwvision
+    mvn clean package -DskipTests
+    cf push --no-start
     ```
 
 1. Create a Storage Bucket:
     ```
-	cf create-service google-storage standard awwvision-storage'
+	cf create-service google-storage standard awwvision-storage
     ```
 
 1. Bind the bucket to your app and give the service account storage object admin permissions:
@@ -36,11 +37,11 @@ Awwvision: Spring Boot edition has two endpoints:
     cf bind-service awwvision awwvision-storage -c '{"role":"storage.objectAdmin"}'
     ```
 
-1. Restage the app so the new environment variables take effect:
+1. Restart the app so the new environment variables take effect:
     ```
-    cf restage awwvision
+    cf restart awwvision
     ```
 
 ### Visit the application and start the crawler
 
-Once your application is running, visit awwvision.\[your-cf-instance-url\]/reddit to start crawling. The page will display "Scrape completed." once it is done. From there, visit awwvision.\[your-cf-instance-url\] to view your images!
+Once your application is running, get the URL of the application from the output of the restart command above.  Visit http://URL/reddit to start crawling. The page will display "Scrape completed." once it is done. From there, visit http://URL to view your images!
