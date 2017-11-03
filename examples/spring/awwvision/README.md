@@ -37,11 +37,11 @@ Awwvision: Spring Boot edition has two endpoints:
     cf bind-service awwvision awwvision-storage -c '{"role":"storage.objectAdmin"}'
     ```
 
-1. Restart the app so the new environment variables take effect:
+1. Start the app so the new environment variables take effect:
     ```
-    cf restart awwvision
+    cf start awwvision
     ```
 
 ### Visit the application and start the crawler
 
-Once your application is running, get the URL of the application from the output of the restart command above.  Visit http://URL/reddit to start crawling. The page will display "Scrape completed." once it is done. From there, visit http://URL to view your images!
+Once your application is running, get the URL of the application from the output of the start command above.  Visit http://URL/reddit to start crawling. The page will display "Scrape completed." once it is done. From there, visit http://URL to view your images!
